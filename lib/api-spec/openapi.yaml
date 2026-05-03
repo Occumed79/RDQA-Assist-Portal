@@ -1,0 +1,1236 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: guides
+    description: Guide management operations
+  - name: ai
+    description: AI-powered automation for guides
+  - name: gemini
+    description: Gemini AI chat and image operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /guides:
+    get:
+      operationId: listGuides
+      tags: [guides]
+      summary: List all guides
+      responses:
+        "200":
+          description: List of guides
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Guide"
+    post:
+      operationId: createGuide
+      tags: [guides]
+      summary: Create a new guide
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateGuideBody"
+      responses:
+        "201":
+          description: Created guide
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Guide"
+
+  /guides/{id}:
+    get:
+      operationId: getGuide
+      tags: [guides]
+      summary: Get guide by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Guide
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Guide"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    put:
+      operationId: updateGuide
+      tags: [guides]
+      summary: Update a guide
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateGuideBody"
+      responses:
+        "200":
+          description: Updated guide
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Guide"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    delete:
+      operationId: deleteGuide
+      tags: [guides]
+      summary: Delete a guide
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /guides/stats/summary:
+    get:
+      operationId: getGuideStats
+      tags: [guides]
+      summary: Get summary stats for guides
+      responses:
+        "200":
+          description: Stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GuideStats"
+
+  /ai/generate-steps:
+    post:
+      operationId: aiGenerateSteps
+      tags: [ai]
+      summary: Use Gemini to generate steps from a rough outline
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AiGenerateStepsBody"
+      responses:
+        "200":
+          description: Generated steps
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AiGenerateStepsResponse"
+
+  /ai/polish-steps:
+    post:
+      operationId: aiPolishSteps
+      tags: [ai]
+      summary: Use Gemini to polish and improve all steps in a guide
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AiPolishStepsBody"
+      responses:
+        "200":
+          description: Polished steps
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AiPolishStepsResponse"
+
+  /ai/autofill-step:
+    post:
+      operationId: aiAutofillStep
+      tags: [ai]
+      summary: Use Gemini to autofill a single step
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AiAutofillStepBody"
+      responses:
+        "200":
+          description: Autofilled step
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AiAutofillStepResponse"
+
+  /guides/{id}/forms:
+    get:
+      operationId: listGuideForms
+      tags: [guides]
+      summary: List all forms for a guide
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of forms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GuideForm"
+    post:
+      operationId: createGuideForm
+      tags: [guides]
+      summary: Create a new form for a guide
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateGuideFormBody"
+      responses:
+        "201":
+          description: Created form
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GuideForm"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /forms/{id}:
+    get:
+      operationId: getGuideForm
+      tags: [guides]
+      summary: Get a form by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Form
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GuideForm"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    put:
+      operationId: updateGuideForm
+      tags: [guides]
+      summary: Update a form
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateGuideFormBody"
+      responses:
+        "200":
+          description: Updated form
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GuideForm"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    delete:
+      operationId: deleteGuideForm
+      tags: [guides]
+      summary: Delete a form
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /forms/{id}/submissions:
+    get:
+      operationId: listFormSubmissions
+      tags: [guides]
+      summary: List all submissions for a form
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of submissions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GuideFormSubmission"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    post:
+      operationId: submitGuideForm
+      tags: [guides]
+      summary: Submit a response to a form
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitGuideFormBody"
+      responses:
+        "201":
+          description: Created submission
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GuideFormSubmission"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /public/forms/{token}:
+    get:
+      operationId: getPublicForm
+      tags: [guides]
+      summary: Get a public form by its share token (no auth required)
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Public form data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PublicGuideForm"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /public/forms/{token}/submit:
+    post:
+      operationId: submitPublicForm
+      tags: [guides]
+      summary: Submit a response to a public form (no auth required)
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitGuideFormBody"
+      responses:
+        "201":
+          description: Submission recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GuideFormSubmission"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /guides/{id}/signatures:
+    get:
+      operationId: listGuideSignatures
+      tags: [guides]
+      summary: List all signatures for a guide
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of signatures
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GuideSignature"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+    post:
+      operationId: createGuideSignature
+      tags: [guides]
+      summary: Submit a signed acknowledgment for a guide
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateGuideSignatureBody"
+      responses:
+        "201":
+          description: Created signature
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GuideSignature"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /gemini/conversations:
+    get:
+      operationId: listGeminiConversations
+      tags: [gemini]
+      summary: List all conversations
+      responses:
+        "200":
+          description: List of conversations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GeminiConversation"
+    post:
+      operationId: createGeminiConversation
+      tags: [gemini]
+      summary: Create a new conversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateGeminiConversationBody"
+      responses:
+        "201":
+          description: Created conversation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiConversation"
+  /gemini/conversations/{id}:
+    get:
+      operationId: getGeminiConversation
+      tags: [gemini]
+      summary: Get conversation with messages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Conversation with messages
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiConversationWithMessages"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+    delete:
+      operationId: deleteGeminiConversation
+      tags: [gemini]
+      summary: Delete a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+  /gemini/conversations/{id}/messages:
+    get:
+      operationId: listGeminiMessages
+      tags: [gemini]
+      summary: List messages in a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GeminiMessage"
+    post:
+      operationId: sendGeminiMessage
+      tags: [gemini]
+      summary: Send a message and receive an AI response (SSE stream)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendGeminiMessageBody"
+      responses:
+        "200":
+          description: SSE stream of assistant response chunks
+          content:
+            text/event-stream: {}
+  /gemini/generate-image:
+    post:
+      operationId: generateGeminiImage
+      tags: [gemini]
+      summary: Generate an image from a text prompt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateGeminiImageBody"
+      responses:
+        "200":
+          description: Generated image data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenerateGeminiImageResponse"
+
+  /ai/analyze-screenshots:
+    post:
+      operationId: analyzeScreenshots
+      tags: [ai]
+      summary: Analyze screenshots and generate guide steps using Gemini Vision
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnalyzeScreenshotsBody"
+      responses:
+        "200":
+          description: Generated steps from screenshot analysis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalyzeScreenshotsResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "500":
+          description: AI error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    GuideStep:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        instruction:
+          type: string
+        tip:
+          type: string
+        caution:
+          type: string
+        imageUrl:
+          type: string
+        imageCaption:
+          type: string
+        order:
+          type: integer
+      required:
+        - id
+        - title
+        - instruction
+        - order
+
+    Guide:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/GuideStep"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - description
+        - category
+        - tags
+        - steps
+        - createdAt
+        - updatedAt
+
+    CreateGuideBody:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/GuideStep"
+      required:
+        - title
+        - description
+
+    UpdateGuideBody:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/GuideStep"
+
+    GuideStats:
+      type: object
+      properties:
+        totalGuides:
+          type: integer
+        totalSteps:
+          type: integer
+        categoryCounts:
+          type: object
+          additionalProperties:
+            type: integer
+        recentGuides:
+          type: array
+          items:
+            $ref: "#/components/schemas/Guide"
+      required:
+        - totalGuides
+        - totalSteps
+        - categoryCounts
+        - recentGuides
+
+    AiGenerateStepsBody:
+      type: object
+      properties:
+        outline:
+          type: string
+        guideTitle:
+          type: string
+        mode:
+          type: string
+          enum: [append, replace]
+      required:
+        - outline
+        - guideTitle
+
+    AiGenerateStepsResponse:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/GuideStep"
+      required:
+        - steps
+
+    AiPolishStepsBody:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/GuideStep"
+        guideTitle:
+          type: string
+      required:
+        - steps
+        - guideTitle
+
+    AiPolishStepsResponse:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/GuideStep"
+      required:
+        - steps
+
+    AiAutofillStepBody:
+      type: object
+      properties:
+        step:
+          $ref: "#/components/schemas/GuideStep"
+        guideTitle:
+          type: string
+      required:
+        - step
+        - guideTitle
+
+    AiAutofillStepResponse:
+      type: object
+      properties:
+        step:
+          $ref: "#/components/schemas/GuideStep"
+      required:
+        - step
+
+    GeminiConversation:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - createdAt
+    GeminiMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+        conversationId:
+          type: integer
+        role:
+          type: string
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - conversationId
+        - role
+        - content
+        - createdAt
+    CreateGeminiConversationBody:
+      type: object
+      properties:
+        title:
+          type: string
+      required:
+        - title
+    SendGeminiMessageBody:
+      type: object
+      properties:
+        content:
+          type: string
+      required:
+        - content
+    GeminiConversationWithMessages:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/GeminiMessage"
+      required:
+        - id
+        - title
+        - createdAt
+        - messages
+    GenerateGeminiImageBody:
+      type: object
+      properties:
+        prompt:
+          type: string
+      required:
+        - prompt
+    GenerateGeminiImageResponse:
+      type: object
+      properties:
+        b64_json:
+          type: string
+        mimeType:
+          type: string
+      required:
+        - b64_json
+        - mimeType
+    FormField:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [text, textarea, checkbox, radio, select, number, rating, date, signature]
+        label:
+          type: string
+        required:
+          type: boolean
+        placeholder:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+        order:
+          type: integer
+      required:
+        - id
+        - type
+        - label
+        - required
+        - order
+
+    GuideForm:
+      type: object
+      properties:
+        id:
+          type: integer
+        guideId:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/FormField"
+        isActive:
+          type: boolean
+        publicToken:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - guideId
+        - title
+        - description
+        - fields
+        - isActive
+        - publicToken
+        - createdAt
+        - updatedAt
+
+    PublicGuideForm:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/FormField"
+        guideTitle:
+          type: string
+      required:
+        - id
+        - title
+        - description
+        - fields
+        - guideTitle
+
+    CreateGuideFormBody:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/FormField"
+      required:
+        - title
+
+    UpdateGuideFormBody:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/FormField"
+        isActive:
+          type: boolean
+
+    GuideFormSubmission:
+      type: object
+      properties:
+        id:
+          type: integer
+        formId:
+          type: integer
+        guideId:
+          type: integer
+        submitterName:
+          type: string
+        submitterEmail:
+          type: string
+        answers:
+          type: object
+          additionalProperties: {}
+        ipAddress:
+          type: string
+          nullable: true
+        submittedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - formId
+        - guideId
+        - submitterName
+        - submitterEmail
+        - answers
+        - submittedAt
+
+    SubmitGuideFormBody:
+      type: object
+      properties:
+        submitterName:
+          type: string
+          minLength: 1
+        submitterEmail:
+          type: string
+          format: email
+        answers:
+          type: object
+          additionalProperties: {}
+      required:
+        - submitterName
+        - submitterEmail
+        - answers
+
+    GuideSignature:
+      type: object
+      properties:
+        id:
+          type: integer
+        guideId:
+          type: integer
+        signerName:
+          type: string
+        signerEmail:
+          type: string
+        signatureDataUrl:
+          type: string
+        ipAddress:
+          type: string
+          nullable: true
+        signedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - guideId
+        - signerName
+        - signerEmail
+        - signatureDataUrl
+        - signedAt
+
+    CreateGuideSignatureBody:
+      type: object
+      properties:
+        signerName:
+          type: string
+          minLength: 1
+        signerEmail:
+          type: string
+          format: email
+        signatureDataUrl:
+          type: string
+          minLength: 1
+      required:
+        - signerName
+        - signerEmail
+        - signatureDataUrl
+
+    GeminiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    ScreenshotInput:
+      type: object
+      properties:
+        data:
+          type: string
+          description: Base64-encoded image data
+        mimeType:
+          type: string
+          enum: [image/png, image/jpeg, image/webp, image/gif]
+      required:
+        - data
+        - mimeType
+
+    AnalyzeScreenshotsBody:
+      type: object
+      properties:
+        screenshots:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScreenshotInput"
+          minItems: 1
+          maxItems: 20
+        context:
+          type: string
+          description: Optional context about what the guide is about
+      required:
+        - screenshots
+
+    AnalyzeScreenshotsResponse:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/GuideStep"
+        suggestedTitle:
+          type: string
+        suggestedDescription:
+          type: string
+      required:
+        - steps
+        - suggestedTitle
+        - suggestedDescription
