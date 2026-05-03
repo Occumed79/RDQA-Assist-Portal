@@ -1,0 +1,360 @@
+The current direction is too broad and includes internal tools that do not belong in this portal.
+
+Rebuild/refocus the app as an applicant/employee-facing portal only.
+
+The product name should be:
+
+Occu-Med RDQA Resource Center
+
+This portal is NOT for ExamQA analysts, clients, administrators, or internal case management. It is only for applicants and employees who received an RDQA notice and need help understanding the process and finding realistic, affordable resources to obtain the requested medical documentation.
+
+Remove or hide:
+- EQA Dashboard
+- Client Dashboard
+- Admin Template Library
+- Smart Reply Generator
+- Internal case assignment
+- Analyst call scripts
+- ROI calculator
+- Client pricing tiers
+- Internal readiness routing
+- SME routing
+- Any employer/client-facing analytics
+
+The portal should focus on these applicant/employee goals:
+
+1. Understand what RDQA means.
+2. Understand why they received an RDQA notice.
+3. Understand that RDQA does not automatically mean disqualification.
+4. Understand what their provider needs to address.
+5. Understand what documents to bring to their provider.
+6. Find realistic, affordable medical care/testing resources.
+7. Learn what questions to ask when calling providers.
+8. Prepare for their appointment.
+9. Avoid common documentation mistakes.
+10. Know what to do if they cannot meet the deadline.
+
+Important compliance positioning:
+- Occu-Med is not providing medical advice.
+- Occu-Med is not referring the applicant to a specific provider.
+- Occu-Med is not endorsing or partnering with listed providers/resources.
+- Occu-Med is not scheduling appointments.
+- Applicants may choose any qualified provider.
+- Resources are provided as a courtesy only.
+- Applicants must verify pricing, availability, insurance acceptance, referral requirements, and services directly with each facility.
+- The portal helps applicants understand the documentation requested in their RDQA letter.
+
+Design:
+Use a clean, calming, professional healthcare look.
+Use soft blues, white, light gray, and gentle glass-style cards.
+Do not make it look like a dark internal dashboard.
+Make it feel accessible, supportive, and not intimidating.
+Use simple language and large readable sections.
+Mobile-friendly design is important.
+
+Main navigation should include only:
+
+- Home
+- What Is RDQA?
+- My Next Steps
+- Condition Guides
+- Find Affordable Care
+- Questions to Ask Providers
+- Prepare for Appointment
+- Deadline Help
+- FAQs
+
+Home Page:
+Create a welcoming page titled:
+“Occu-Med RDQA Resource Center”
+
+Subtitle:
+“Guidance and resources to help you understand your RDQA notice and prepare the information requested for review.”
+
+Include cards:
+- Understand RDQA
+- Find your condition guide
+- Prepare for your provider visit
+- Find affordable care options
+- Learn what questions to ask
+- Need more time?
+
+Add a simple reassurance:
+“Receiving an RDQA notice does not automatically mean you are disqualified. It means additional medical information is needed before a final recommendation can be made.”
+
+What Is RDQA Page:
+Explain in plain language:
+- RDQA means additional information is needed.
+- It gives the applicant/employee an opportunity to provide medical documentation.
+- Occu-Med needs this information before issuing a final recommendation.
+- The final employment decision remains with the employer.
+- The process may involve follow-up with a healthcare provider of the applicant’s choice.
+- The applicant is responsible for obtaining and submitting the requested information.
+
+My Next Steps Page:
+Create a step-by-step guide:
+1. Read your RDQA letter.
+2. Go to the page titled “Medical Information Requested.”
+3. Identify each condition or finding listed.
+4. Use the condition guide to understand what may be needed.
+5. Gather your RDQA letter, job description, lab results, and medical records.
+6. Contact a provider of your choice.
+7. Ask the provider to address the specific items in the letter.
+8. Submit the completed information to Occu-Med.
+9. Contact Occu-Med if you cannot meet the deadline.
+
+Condition Guides Page:
+Create applicant-friendly guides for:
+- Diabetes / Elevated A1c
+- Elevated Blood Pressure / Hypertension
+- Sleep Apnea
+- Dental Status / DD2813
+- Abnormal Lab Results
+- Behavioral Health / Depression / PTSD
+- Cardiac Findings / ASCVD / Atrial Fibrillation
+- Pulmonary Function Testing
+- Orthopedic Pain / Back / Joint Pain
+- Nodule / Incidental Finding
+- Medication Use / Side Effects
+
+Each condition guide should include:
+- What this usually means
+- What your provider may need to address
+- What documents may help
+- What kind of provider may be appropriate
+- Lower-cost resource options to consider
+- Questions to ask when scheduling
+- Common reasons documentation is incomplete
+
+Example for Diabetes / Elevated A1c:
+Explain:
+“Your A1c result was elevated. Occu-Med may need your provider to explain whether this result indicates diabetes, prediabetes, or another condition; whether there are complications; what treatment was started; and whether ongoing monitoring is needed.”
+
+Provider may need to address:
+- Diagnosis/current status
+- A1c result
+- Complications or target-organ effects
+- Treatment plan
+- Medication list
+- Monitoring frequency
+- Foot exam, eye exam, or nutrition counseling if applicable
+- Whether the condition affects essential job functions
+- Whether restrictions/accommodations are needed
+
+Affordable resource options:
+- Primary care clinic
+- Community health center/FQHC
+- Low-cost lab options
+- Diabetes education programs
+- Nutrition counseling resources
+- Hospital financial assistance
+- Prescription discount programs
+
+Find Affordable Care Page:
+This should be the largest and most important section.
+
+Create a Resource Pathway Quiz:
+Ask:
+- Do you have health insurance?
+- Do you have a primary care provider?
+- Can you afford a doctor visit?
+- Do you need a specialist?
+- Do you know what test you need?
+- Do you live in a rural area?
+- Do you need transportation help?
+- Is your deadline approaching?
+
+Based on answers, show recommended pathways:
+- Start with your existing treating provider
+- Contact a community health center/FQHC
+- Contact a county health department
+- Ask a hospital about financial assistance/charity care
+- Compare cash-pay testing options
+- Consider retail clinic/urgent care for simple services
+- Look for dental schools/community dental clinics
+- Ask about university/training programs
+- Call 211 or local community resources
+- Request deadline extension if timing is unrealistic
+
+Create Resource Category Cards:
+1. Community Health Centers / FQHCs
+Best for:
+- Uninsured or underinsured applicants
+- Primary care visits
+- Diabetes, blood pressure, basic chronic condition follow-up
+Questions to ask:
+- Do you offer sliding-scale pricing?
+- Can a provider review my RDQA letter?
+- Can the provider issue a written statement?
+
+2. Hospital Financial Assistance / Charity Care
+Best for:
+- Expensive testing
+- Imaging
+- Cardiac testing
+- Specialist-related services
+Questions:
+- Do you have financial assistance?
+- Can I apply before scheduling?
+- Are there separate facility or interpretation fees?
+
+3. Cash-Pay Testing Options
+Best for:
+- Labs
+- Imaging
+- Some diagnostic testing
+Questions:
+- What is the cash-pay price?
+- Is the written report included?
+- Are there additional fees?
+
+4. Dental Schools / Community Dental Clinics
+Best for:
+- DD2813 dental form
+- Dental exams
+- Lower-cost dental treatment
+Questions:
+- Can the dentist complete DD Form 2813?
+- Can they identify dental category status?
+- What is the cost for exam/x-rays?
+
+5. Retail Clinics / Urgent Care
+Best for:
+- Basic visits
+- BP readings
+- Some labs
+- Some EKGs
+Questions:
+- Can a provider issue a written statement?
+- Can they review job functions?
+- Are results available quickly?
+
+6. University / Training Programs
+Best for:
+- Dental
+- Respiratory therapy/PFT
+- Vision/hearing
+- Supervised low-cost services
+Questions:
+- Do you offer low-cost student clinic services?
+- Are services supervised by licensed professionals?
+- Can documentation be provided?
+
+7. Transportation / Community Help
+Best for:
+- Applicants without transportation
+Questions:
+- Does 211 list medical transportation?
+- Are there county transportation resources?
+- Are there nonprofit ride programs?
+
+Resource Directory:
+Create mock region filters:
+- Central Valley
+- Bay Area
+- Southland / Los Angeles
+- Central Coast
+- Rural California
+- Nationwide Resources
+
+For each region, show resource cards with:
+- Name
+- Resource type
+- Phone
+- Website
+- Services
+- Typical cost range, if known
+- Sliding scale yes/no
+- Financial assistance yes/no
+- Notes
+- Last verified date
+- Reminder to verify directly
+
+Questions to Ask Providers Page:
+Create reusable scripts:
+General script:
+“Hello, I received a medical follow-up request for an employment/deployment medical review. I need to know whether your provider can review a letter, evaluate the condition listed, and provide a written statement addressing specific questions.”
+
+Questions:
+- What is your cash-pay rate?
+- Do you offer sliding-scale pricing?
+- Do you offer financial assistance?
+- Do I need a referral?
+- Can the provider issue a written statement?
+- Can the provider review a job description?
+- Are there separate interpretation/report fees?
+- How soon can I get an appointment?
+- How long will results take?
+- Can I receive a copy of the results?
+- What should I bring?
+
+Add condition-specific call scripts:
+- Diabetes/A1c
+- Blood Pressure
+- PFT
+- Dental/DD2813
+- EKG/Cardiac
+- Sleep Apnea
+- Behavioral Health
+
+Prepare for Appointment Page:
+Checklist:
+Bring:
+- RDQA letter
+- Medical Information Requested page
+- Job description/essential job functions
+- Lab results/testing
+- Medication list
+- Prior records
+- Provider question sheet from the portal
+
+Tell your provider:
+- Please answer each item in the RDQA letter.
+- Please review the job functions.
+- Please focus on the specific role, not just general return-to-work.
+- Please state whether restrictions or accommodations are needed.
+- Please include relevant test results or medical history.
+
+Common mistakes:
+- Provider writes only “cleared to work”
+- Provider does not address each bullet point
+- Provider does not mention job functions
+- Provider does not address restrictions/accommodations
+- Provider omits testing results
+- Provider omits diagnosis/current status
+- Provider note is missing date/signature/credentials
+
+Deadline Help Page:
+Explain:
+“If you cannot obtain the requested information before your deadline, contact Occu-Med as soon as possible. Extensions may need to be reviewed by the employer/client.”
+
+Create a simple extension prep form:
+- Current deadline
+- Appointment date
+- Testing date
+- What is still pending
+- Reason more time is needed
+- Expected date documents will be available
+
+Generate a short message the applicant can send to Occu-Med:
+“I am requesting additional time because [reason]. My appointment/testing is scheduled for [date], and I expect to submit the requested documentation by [date].”
+
+FAQs Page:
+Include:
+- Am I disqualified?
+- Why do I have to pay for this?
+- Can Occu-Med schedule my appointment?
+- Can Occu-Med refer me to a doctor?
+- What if I do not have insurance?
+- What if I cannot afford testing?
+- Can my primary care provider complete this?
+- What if my provider does not understand the letter?
+- What if my provider only wrote “cleared to work”?
+- What if I need more time?
+- What should I submit?
+- Where do I send documents?
+
+Add a prominent disclaimer footer on every page:
+“These resources are provided as a courtesy only. Occu-Med does not endorse, recommend, contract with, or partner with specific providers for your RDQA follow-up. You may choose any qualified provider. Please verify pricing, availability, insurance acceptance, referral requirements, and services directly with each facility. This portal does not provide medical advice or determine qualification.”
+
+Make this a real applicant support portal. Keep it focused, practical, and compassionate.
